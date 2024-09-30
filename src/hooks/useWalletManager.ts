@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { walletsState } from "../atoms/walletAtom";
+import { walletsState, mnemonicState } from "../atoms/walletAtom"; // Import the mnemonic state atom
 import { generateMnemonic } from "bip39";
 import { generateWalletFromMnemonic } from "../utils/walletUtils";
 
-const MNEMONIC_KEY = "mnemonic"; // Local storage key
+const MNEMONIC_KEY = "mnemonic"; 
 
-// Custom Hook to manage wallets
 export const useWalletManager = () => {
   const [wallets, setWallets] = useRecoilState(walletsState);
-  const [mnemonic, setMnemonic] = useState<string>("");
+  const [mnemonic, setMnemonic] = useRecoilState(mnemonicState); 
 
   // Function to check local storage for mnemonic or generate new
   const getOrCreateMnemonic = (): string => {
@@ -23,12 +22,22 @@ export const useWalletManager = () => {
     }
   };
 
+  // Function to generate a new mnemonic and replace the existing one in local storage
+  const generateNewMnemonic = () => {
+    const newMnemonic = generateMnemonic();
+    localStorage.setItem(MNEMONIC_KEY, newMnemonic);
+    setMnemonic(newMnemonic); 
+    addWallet();
+  };
+
   // Initialize mnemonic and first wallet
   useEffect(() => {
     const existingMnemonic = getOrCreateMnemonic();
     setMnemonic(existingMnemonic);
-    addWallet();
-  }, []); // Only run on initial load
+    if (wallets.length === 0) {
+      addWallet();
+    }
+  }, []); 
 
   // Function to get all wallets
   const getAllWallets = () => {
@@ -45,9 +54,6 @@ export const useWalletManager = () => {
     if (solanaWallet && ethereumWallet) {
       setWallets((prevWallets) => [...prevWallets, { solanaWallet, ethereumWallet }]);
     }
-
-    console.log("Wallets", wallets);
-    
   };
 
   // Function to remove a wallet by index
@@ -61,5 +67,6 @@ export const useWalletManager = () => {
     addWallet,
     removeWallet,
     getAllWallets,
+    generateNewMnemonic,
   };
 };

@@ -6,3 +6,10 @@ export const walletsState = atom<Array<{ solanaWallet: Wallet; ethereumWallet: W
   key: 'walletsState', // unique ID for the atom
   default: [], // default value (empty array)
 });
+
+
+export const mnemonicState = atom({
+  key: 'mnemonicState',
+  default: '', // Initial state for the mnemonic
+});
+
