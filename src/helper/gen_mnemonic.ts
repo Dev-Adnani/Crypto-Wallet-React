@@ -6,6 +6,7 @@ import bs58 from "bs58";
 import { ethers } from "ethers";
 import { Wallet } from "../model/wallet";
 
+
 export const generateWalletFromMnemonic = (
   pathType: string,
   mnemonic: string,
