@@ -1,39 +1,27 @@
-import { generateMnemonic } from "bip39";
-import Footer from "./components/ui/Footer"
-import { Mnemonic } from "./components/ui/Mnemonic"
-import { generateWalletFromMnemonic } from "./helper/gen_mnemonic";
+// App.tsx
+import Footer from "./components/ui/Footer";
+import { Mnemonic } from "./components/ui/Mnemonic";
 import Header from "./components/ui/Header";
+import { useWalletManager } from "./hooks/useWalletManager";
 
 function App() {
-  let mnemonic = generateMnemonic(); 
-  let mnemonicArray = mnemonic.split(" "); 
-  const wallets: Array<{ solanaWallet: any; ethereumWallet: any;  }> = [];
+  const { mnemonic, wallets, addWallet, removeWallet } = useWalletManager();
 
-  const addWallet = () => {
-    const newIndex = wallets.length; 
-    const solanaWallet  = generateWalletFromMnemonic("501",mnemonic, newIndex);
-    const ethereumWallet = generateWalletFromMnemonic("60",mnemonic, newIndex);
-
-    wallets.push({ solanaWallet, ethereumWallet });
-
-    console.log(`Wallet ${newIndex} added!`);
-    console.log("Wallets", wallets);
-  };
+  const mnemonicWords = mnemonic.split(" "); // Get words from the mnemonic
 
   return (
     <div className="min-h-screen flex flex-col bg-darkblue p-5">
-      {/* Header always at the top */}
       <Header />
-      
-      {/* Content in the middle */}
+
       <div className="flex-grow p-10 bg-darkblue">
-        <Mnemonic mnemonicWords={mnemonicArray} />
+        <Mnemonic mnemonicWords={mnemonicWords} />
+        <button onClick={() => addWallet()}>Add Wallet</button>
+        <button onClick={() => removeWallet(0)}>Remove First Wallet</button>
       </div>
-      
-      {/* Footer at the bottom */}
+
       <Footer />
     </div>
-  )
+  );
 }
 
 export default App;
