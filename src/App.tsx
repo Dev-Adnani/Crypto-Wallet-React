@@ -3,6 +3,7 @@ import Header from "./components/ui/Header";
 import { useWalletManager } from "./hooks/useWalletManager";
 import { SnackbarProvider } from "notistack";
 import MnemonicDisplay from "./components/blocks/mnemonic_block";
+import WalletDisplay from "./components/ui/WalletDisplay";
 
 function App() {
   const { mnemonic } = useWalletManager();
@@ -15,6 +16,8 @@ function App() {
 
       <div className="flex-grow p-10 bg-darkblue">
         <MnemonicDisplay mnemonicWords={mnemonicWords} />
+
+        <WalletDisplay/>
       </div>
 
       <Footer />

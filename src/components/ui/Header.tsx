@@ -3,7 +3,7 @@ import { useWalletManager } from "../../hooks/useWalletManager";
 import { enqueueSnackbar } from "notistack";
 
 export default function Header() {
-  const { generateNewMnemonic } = useWalletManager();
+  const { generateNewMnemonic, addWallet } = useWalletManager();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleGenerateWallet = () => {
@@ -22,14 +22,22 @@ export default function Header() {
 
   return (
     <header className="bg-darkblue my-5">
-      <div className=" mx-auto flex justify-between items-center">
+      <div className=" mx-auto flex justify-between items-end">
         <div className="text-frostedwhite font-bold text-2xl">CryptoWallet</div>
+        <div className="flex gap-4">
         <button
           onClick={handleGenerateWallet}
           className="bg-frostedwhite text-darkblue py-2 px-4 rounded-lg hover:bg-blue-500 transition font-bold"
         >
           Generate Wallet
         </button>
+        <button
+          className="bg-frostedwhite text-darkblue py-2 px-4 rounded-lg hover:bg-blue-500 transition font-bold"
+          onClick={addWallet}
+            >
+              Add New Wallet
+            </button>
+          </div>
       </div>
 
       {isDialogOpen && (
@@ -49,6 +57,7 @@ export default function Header() {
               >
                 No
               </button>
+          
             </div>
           </div>
         </div>

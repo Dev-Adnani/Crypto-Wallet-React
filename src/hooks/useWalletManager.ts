@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { walletsState, mnemonicState } from "../atoms/walletAtom"; // Import the mnemonic state atom
+import { walletsState, mnemonicState } from "../atoms/walletAtom";
 import { generateMnemonic } from "bip39";
 import { generateWalletFromMnemonic } from "../utils/walletUtils";
 
@@ -27,16 +27,14 @@ export const useWalletManager = () => {
     const newMnemonic = generateMnemonic();
     localStorage.setItem(MNEMONIC_KEY, newMnemonic);
     setMnemonic(newMnemonic); 
-    addWallet();
+    setWallets([]);
   };
 
   // Initialize mnemonic and first wallet
   useEffect(() => {
     const existingMnemonic = getOrCreateMnemonic();
     setMnemonic(existingMnemonic);
-    if (wallets.length === 0) {
-      addWallet();
-    }
+    
   }, []); 
 
   // Function to get all wallets
