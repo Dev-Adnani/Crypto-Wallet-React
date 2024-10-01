@@ -1,7 +1,8 @@
 
 # Wallet Generator
 
-A simple wallet generation and import tool built for React. This project allows users to generate new wallets or import existing ones using a recovery phrase. Private keys and recovery phrases can be toggled for visibility, and the generated information can be easily copied to the clipboard.
+A simple wallet generation built for React. This project allows users to generate new wallets. 
+Private keys and recovery phrases can be toggled for visibility, and the generated information can be easily copied to the clipboard.
 
 ## Features
 
