@@ -7,7 +7,6 @@ Private keys and recovery phrases can be toggled for visibility, and the generat
 ## Features
 
 - **Generate Wallet**: Create a new wallet and view the generated private and public keys.
-- **Import Wallet**: Optionally enter an existing recovery phrase to generate keys.
 - **Toggle Visibility**: Show or hide private keys and recovery phrases to enhance security.
 - **Copy to Clipboard**: Easily copy private keys, public keys, and the recovery phrase.
 
@@ -45,10 +44,6 @@ This project uses **Recoil** for state management:
 - Generates a new mnemonic phrase and derives the corresponding seed.
 - Uses the seed to generate private and public keys.
 - Displays the generated keys and mnemonic phrase.
-
-### Importing a Wallet:
-
-- Optionally enter a recovery phrase to derive private and public keys.
 
 ### Visibility Toggle:
 
