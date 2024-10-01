@@ -1,4 +1,3 @@
-// walletUtils.ts
 import { mnemonicToSeedSync } from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
 import { Keypair } from '@solana/web3.js';
@@ -6,10 +5,10 @@ import nacl from 'tweetnacl';
 import bs58 from 'bs58';
 import { ethers } from 'ethers';
 import { Wallet } from '../model/wallet';
+import { enqueueSnackbar } from 'notistack';
 
-// Function to generate a random mnemonic (using a library like bip39)
+// Function to generate a random mnemonic 
 export const generateMnemonic = (): string => {
-  // You can use the `bip39` library to generate a mnemonic
   const bip39 = require('bip39');
   return bip39.generateMnemonic();
 };
@@ -49,7 +48,7 @@ export const generateWalletFromMnemonic = (
       coinType = 'Ethereum';
     
     } else {
-      // Return null for unsupported path types
+      enqueueSnackbar('Invalid path type', { variant: 'error' });
       return null;
     }
 
@@ -64,7 +63,7 @@ export const generateWalletFromMnemonic = (
     };
     
   } catch (error) {
-    console.error('Wallet generation error:', error);
+    enqueueSnackbar('Error generating wallet', { variant: 'error' });
     return null;
   }
 };

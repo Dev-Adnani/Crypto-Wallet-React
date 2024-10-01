@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useWalletManager } from "../../hooks/useWalletManager";
+import { enqueueSnackbar } from "notistack";
 
 export default function Header() {
   const { generateNewMnemonic } = useWalletManager();
@@ -11,11 +12,12 @@ export default function Header() {
 
   const handleConfirmGenerate = () => {
     generateNewMnemonic();
-    setIsDialogOpen(false); // Close the dialog after generating new mnemonic
+    enqueueSnackbar('New Secret Code Generated Successfully', { variant: 'success' });
+    setIsDialogOpen(false); 
   };
 
   const handleCancelGenerate = () => {
-    setIsDialogOpen(false); // Close the dialog without generating new mnemonic
+    setIsDialogOpen(false); 
   };
 
   return (
@@ -30,7 +32,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Confirmation Dialog */}
       {isDialogOpen && (
         <div className="fixed inset-0 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg bg-frostedwhite opacity-90">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Copy } from "lucide-react";
+import { enqueueSnackbar } from "notistack";
 
 interface MnemonicDisplayProps {
   mnemonicWords: string[];
@@ -64,7 +65,10 @@ const MnemonicDisplay = ({ mnemonicWords }: MnemonicDisplayProps) => {
           </motion.div>
           <button
             className="mt-4 text-white px-4 py-2 rounded-lg flex items-center justify-center bg-darkblue  border border-frostedwhite"
-            onClick={() => copyToClipboard(mnemonicWords.join(" "))}
+            onClick={() => {
+              copyToClipboard(mnemonicWords.join(" "));
+              enqueueSnackbar('Copied to clipboard', { variant: 'success' });  
+            }}
           >
             <Copy className="size-4 mr-2 align-middle text-frostedwhite" />
             <span className="text-center text-frostedwhite">Copy Secret Phrase</span>
